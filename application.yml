@@ -1,8 +1,115 @@
-info:
-  name: ${spring.application.name}
-  environment: ${spring.profiles.active}
+spring:
+  profiles:
+    active: 'store-local'
 
+# Exposes http://localhost:6061/actuator/info
+# It appears on audit-local
+#  tags: {
+#     environment: "audit-local"
+#  }
+
+  info:
+    name: ${spring.application.name}
+    environment: ${spring.profiles.active}
+
+
+# This is local config yml.
+## IMP: sequence: local-yml/cloud-config.yml > profile-yml > bootstrap-yml
+#  config:
+#    name: local-audit
+#    location: /Users/suraj.parida/MMP/Architecture/Sportx/config-local/audit/local-audit.yml
+
+  rabbitmq:
+    addresses: localhost:5672
+    #    port: 5672
+    username: mmp
+    password: mmp
+  zipkin:
+    enabled: true
+  sleuth:
+    enabled: true
+    sampler:
+      traceId128: true
+      probability: 1.0
+    web:
+      skip-pattern: /error.*|/webjars.*|/api-docs.*|/autoconfig|/health|/configprops|/dump|/info|/metrics.*|/mappings|/trace|/swagger.*|.*\.png|.*\.css|.*\.js|.*\.html|/favicon.ico|/hystrix.stream|/feed/process/.*|/webjars/*
+    integration:
+      websockets:
+        enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+application:
+  name: ${spring.application.name}
+  description: ${spring.application.name} server
+  environment: ${spring.profiles.active}
+  version: 1.0.0
+
+server:
+  port: 6060
+  tomcat:
+    accesslog:
+      enabled: true
+      buffered: false
+      pattern: '%t %a %m %U%q %s %B %D'
+      directory: ${application.global.path}
+      rename-on-rotate: true
+      prefix: sportx-${spring.application.name}-access
+      suffix: .log
+      file-date-format: .yyyyMMddHH00
+
+management:
+  #port: 8081
+  context-path: /
+  security:
+    enabled: false
+  metrics:
+    use-global-registry: false
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        enabled: true
+    enable:
+      http:
+        client:
+          requests: false
+  health:   # disable elasticsearch healthcheck till custom accutator will be added.
+    elasticsearch:
+      enabled: false
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always
+    #info:
+    #  enabled: false             # Enable / Disable Individual endpoints
+  endpoints:
+    #enabled-by-default: true     # Enable / Disable All endpoints
+    web:
+      exposure:
+        include: '*'              #or just ["beans", "metrics"] Enable Only Given Endpoints
+
+    endpoint:
+      health:
+        show-details: ALWAYS
+    servlet:
+      context-path: /
+
+logging:
+  #file: /Users/suraj.parida/MMP/Architecture/Sportx/logs/audit/audit.log
+  #pattern:
+  ## Fix this pattern
+  #file: %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{39}){cyan} - %msg%
+  level:
+    zipkin2: debug
+    org.springframework: debug
+    #org.springframework.cloud.sleuth: debug
+    com.sportx: DEBUG
 
 sportx:
-  global: configFromGitBySuraj
+  global: application
+
+
 
