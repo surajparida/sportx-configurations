@@ -21,14 +21,6 @@ spring:
         username: ${spring.security.user.name}
         password: ${spring.security.user.password}
 
-application:
-  global:
-    path: /Users/suraj.parida/MMP/Architecture/Sportx/logs/${spring.application.name}
-  logging:
-    maxFileSize: 2MB
-    maxHistory: 10
-    totalSizeCap: 50MB
-
 info:
   name: ${spring.application.name}
   description: Sportx Registry Server
