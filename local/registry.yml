@@ -1,4 +1,85 @@
-#eureka:
+spring:
+  application:
+    name: registry
+  security:
+    user:
+      name: registry
+      password: registry
+
+  boot:
+    admin:
+      notify:
+        mail:
+          to: suraj.parida@gmail.com
+          from: suraj.parida+sportx@gmail.com
+      client:
+        instance:
+          metadata:
+            user:
+              name: ${spring.security.user.name}
+              passowrd: ${spring.security.user.password}
+        username: ${spring.security.user.name}
+        password: ${spring.security.user.password}
+
+application:
+  global:
+    path: /Users/suraj.parida/MMP/Architecture/Sportx/logs/${spring.application.name}
+  logging:
+    maxFileSize: 2MB
+    maxHistory: 10
+    totalSizeCap: 50MB
+
+info:
+  name: ${spring.application.name}
+  description: Sportx Registry Server
+  environment: ${spring.profiles.active}
+  version: 1.0.0
+
+server:
+  port: 8761
+  tomcat:
+    accesslog:
+      enabled: true
+      buffered: false
+      pattern: '%t %a %m %U%q %s %B %D'
+      directory: ${application.global.path}
+      rename-on-rotate: true
+      prefix: sportx-${spring.application.name}-access
+      suffix: .log
+      file-date-format: .yyyyMMddHH00
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    endpoint:
+      health:
+        show-details: ALWAYS
+  server:
+    port: 8762
+    servlet:
+      context-path: /
+
+eureka:
+  instance:
+    metadata-map:
+      user:
+        name: ${spring.security.user.name}
+        password: ${spring.security.user.password}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    enable-self-preservation: true
+
+logging:
+  level:
+    org.springframework: WARN
+
+      #eureka:
 
   #### Information about current client/service for Eureka (Sent while registration)
   #instance:
