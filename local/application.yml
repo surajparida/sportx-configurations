@@ -16,5 +16,5 @@ feign:
     store:
       loggerLevel: FULL
 
-  loggerLevel: BASIC
+  loggerLevel: HEADER
   
