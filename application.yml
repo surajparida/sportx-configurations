@@ -47,7 +47,6 @@ application:
   version: 1.0.0
 
 server:
-  port: 6060
   tomcat:
     accesslog:
       enabled: true
