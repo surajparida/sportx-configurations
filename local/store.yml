@@ -1,4 +1,3 @@
-sportx:
-  store:
-    id: 01
-    location: ABC
+store:
+  id: 01
+  location: ABC
