@@ -2,8 +2,8 @@ feign:
   client:
     config:
       default:
-        connectTimeout: 10000
-        readTimeout: 600000
+        connectTimeout: 10
+        readTimeout: 60
         loggerLevel: full
   logger:
     audit:
