@@ -9,9 +9,9 @@ feign:
       default:
         connectTimeout: 1000000
         readTimeout: 6000000
-        loggerLevel: FULL
+        loggerLevel: BASIC
   logger:
     audit:
-      loggerLevel: FULL
+      loggerLevel: BASIC
     store:
-      loggerLevel: FULL
+      loggerLevel: BASIC
