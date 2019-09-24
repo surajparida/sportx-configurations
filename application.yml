@@ -30,7 +30,7 @@ spring:
     enabled: true
     sampler:
       traceId128: true
-      probability: 1.0
+      probability: 9.0
     web:
       skip-pattern: /error.*|/webjars.*|/api-docs.*|/autoconfig|/health|/configprops|/dump|/info|/metrics.*|/mappings|/trace|/swagger.*|.*\.png|.*\.css|.*\.js|.*\.html|/favicon.ico|/hystrix.stream|/feed/process/.*|/webjars/*
     integration:
