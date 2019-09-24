@@ -1,2 +1,4 @@
 application:
-  store: store-1
+  store:
+    id: 01
+    location: ABC
