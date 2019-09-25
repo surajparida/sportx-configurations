@@ -16,8 +16,8 @@ feign:
     store:
       loggerLevel: FULL
 
-  loggerLevel: HEADER
-  connectTimeoutMillis: 100000
-  readTimeoutMillis: 100000
+  loggerLevel: FULL
+  connectTimeoutMillis: 10
+  readTimeoutMillis: 10
 
   
