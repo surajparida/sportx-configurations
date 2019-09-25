@@ -17,7 +17,7 @@ feign:
       loggerLevel: FULL
 
   loggerLevel: HEADER
-  connectTimeoutMillis: 1000000
-  readTimeoutMillis: 1000000
+  connectTimeoutMillis: 10
+  readTimeoutMillis: 10
 
   
