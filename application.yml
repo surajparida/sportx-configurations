@@ -103,7 +103,7 @@ logging:
   #file: %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{39}){cyan} - %msg%
   level:
     zipkin2: debug
-    org.springframework: debug
+    org.springframework: ERROR
     #org.springframework.cloud.sleuth: debug
     com.sportx: DEBUG
 
