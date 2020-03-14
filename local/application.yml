@@ -1,7 +1,7 @@
 sportx:
   global: local>application2
   logs:
-    base-path: '/Users/suraj.parida/Documents/Research/Projects/Sportx/logs'
+    basepath: /Users/suraj.parida/Documents/Research/Projects/Sportx/logs
 
 feign:
   client:
