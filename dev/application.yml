@@ -1,0 +1,23 @@
+sportx:
+  global: local>application2
+  logs:
+    basepath: /Users/suraj.parida/Documents/Research/Projects/Sportx/logs
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 1000000
+        readTimeout: 6000000
+        loggerLevel: FULL
+  logger:
+    audit:
+      loggerLevel: FULL
+    store:
+      loggerLevel: FULL
+
+  loggerLevel: HEADER
+  connectTimeoutMillis: 10
+  readTimeoutMillis: 10
+
+  

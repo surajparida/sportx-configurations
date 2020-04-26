@@ -1,0 +1,10 @@
+server:
+  port: 6040
+management:
+  server:
+    port: 6041
+
+
+store:
+  id: 01
+  location: ABC

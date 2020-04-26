@@ -1,0 +1,120 @@
+spring:
+  application:
+    name: config
+  #profiles:
+  #  active: local
+  config:
+    name: customConfig
+  cloud:
+    config:
+      discovery:
+        enabled: true
+      #override-none: true
+      #allow-override: false
+      #override-system-properties: false
+      server:
+        git:
+          uri: https://github.com/surajparida/sportx-configurations.git
+            # Local file:   file:///Users/suraj.parida/MMP/Architecture/Sportx/sportx-configurations
+          # SSH: ssh://git@stash.synchronoss.net:7999/mmp/configurations.git
+          clone-on-start: false
+
+          timeout: 1000 #seconds, that the configuration server will wait to acquire an HTTP connection
+          search-paths: '{profile}' #Search for sub-directories named matching the profile. Can hardcode folder name like 'dummy'
+          default-label: master
+          #refresh-rate: 0
+          #If repos are different for each env.
+          #repos:
+          #  development:
+          #    pattern:
+          #      - '*/development'
+          #      - '*/staging'
+          #    uri: https://github.com/development/config-repo
+          #  staging:
+          #    pattern:
+          #      - '*/qa'
+          #      - '*/production'
+          #    uri: https://github.com/staging/config-repo
+
+          #native:
+          #search-locations: file:///Users/suraj.parida/MMP/Architecture/Sportx/sportx-configurations
+  security:
+    user:
+      name: config
+      password: config
+
+
+application:
+  global:
+    path: /Users/suraj.parida/MMP/Architecture/Sportx/logs/${spring.application.name}
+  logging:
+    maxFileSize: 2MB
+    maxHistory: 10
+    totalSizeCap: 50MB
+
+info:
+  name: ${spring.application.name}
+  description: Sportx Config Server
+  environment: ${spring.profiles.active}
+  version: 1.0.0
+
+server:
+  port: 6030
+  tomcat:
+    accesslog:
+      enabled: true
+      buffered: false
+      pattern: '%t %a %m %U%q %s %B %D'
+      directory: ${sportx.logs.basepath}
+      rename-on-rotate: true
+      prefix: sportx-${spring.application.name}-access
+      suffix: .log
+      file-date-format: .yyyyMMddHH00
+
+management:
+  #endpoint:
+  #  shutdown:
+  #    enabled: true
+  #info:
+  #  enabled: false                         # Enable / Disable Individual endpoints
+  endpoints:
+
+    #enabled-by-default: true                 # Enable / Disable All endpoints
+    web:
+      exposure:
+        include: '*'
+    endpoint:
+      health:
+        show-details: ALWAYS
+  server:
+    port: 6031
+    servlet:
+      context-path: /
+
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      user:
+        name: ${spring.security.user.name}
+        password: ${spring.security.user.password}
+      startup: ${random.int}    #needed to trigger info and endpoint update after restart
+    prefer-ip-address: true
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://sportx:sportx@localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  server:
+    enable-self-preservation: true
+
+logging:
+  level:
+    zipkin2: debug
+    org.springframework: debug
+    #org.springframework.cloud.sleuth: debug
+    com.sportx: DEBUG
+
